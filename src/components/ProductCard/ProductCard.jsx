@@ -1,7 +1,7 @@
 import Producto from "../Producto/Producto";
 import { useState } from "react";
 
-export default function ProductCard({ producto }) {
+export default function ProductCard({ productos }) {
 
     
     const [proxItems, setProxItems] = useState(3);
@@ -18,7 +18,7 @@ export default function ProductCard({ producto }) {
             <div className="product-main">
 
                 {
-                    producto.map((obj, indice) => {
+                    productos.map((obj, indice) => {
                         if (indice < proxItems) {
                             return <Producto key={obj.id} producto={obj} />
                         }

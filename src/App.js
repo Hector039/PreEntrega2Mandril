@@ -8,6 +8,7 @@ import MiCuenta from "./components/MiCuenta/assets/MiCuenta";
 import Carrito from "./components/Carrito/Carrito";
 import Contacto from "./components/Contacto/Contacto";
 
+
 export default function App(){
 
     const [productos, setProductos] = useState([]);
@@ -15,16 +16,12 @@ export default function App(){
     useEffect(() => {
         async function axiosData() {
             let data = await getProductos();
+            
             setProductos(data);
-            console.log(data);
         }
         axiosData();
 
-    }, []);
-
-console.log(productos);
-
-
+    }, [])
 
     return (
         <div>

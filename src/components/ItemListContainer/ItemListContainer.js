@@ -6,8 +6,6 @@ export default function ItemListContainer({ productos }) {
 
     const [filtroCategoria, setFiltroCategoria] = useState([]);
     const [targetIn, setTargetIn] = useState("todos");
-
-    const [ordenar, setOrdenar] = useState([]);
     const [eventIn, setEventIn] = useState("todos");
 
     function filtrarPorCategoria(e) {
@@ -22,34 +20,29 @@ export default function ItemListContainer({ productos }) {
         const productosFiltrados = productos.filter((elemento) => {
             if (elemento.categoria === targetIn) {
                 return (elemento);
-            }else{
-                return (elemento);
+            }else if(elemento.categoria === "todos"){
+                return (productos);
             }
         });
-        console.log(targetIn);
-        console.log(productosFiltrados);
-        setFiltroCategoria(productosFiltrados);
-    }, [targetIn])
 
-   
-
-    useEffect(() => {
-        const productosOrdenados = filtroCategoria.sort(function (a, b) {
+        const productosOrdenados = productosFiltrados.sort(function (a, b) {
             if (eventIn === "menor") {
                 return (a.precio - b.precio);
             } else if (eventIn === "mayor") {
                 return (b.precio - a.precio);
             } else if (eventIn === "todos") {
-                return filtroCategoria;
+                return (productosFiltrados);
             }
+
         });
-        console.log(eventIn);
+        
         console.log(productosOrdenados);
-        setOrdenar(productosOrdenados);
-        }, [eventIn, filtroCategoria])
+        setFiltroCategoria(productosOrdenados);
+
+    }, [targetIn, eventIn, productos]);
 
         console.log(productos);
-        console.log(ordenar);
+        console.log(filtroCategoria);
     return (
         <div className="item-list-container">
             <h1>Bienvenidos a nuestro Mercadito Verde</h1>
@@ -79,8 +72,8 @@ export default function ItemListContainer({ productos }) {
 
             </div>
             {
-                ordenar.length > 0 ?
-                    <ProductCard key={ordenar.id} productos={ordenar} /> :
+                filtroCategoria.length > 0 ?
+                    <ProductCard key={filtroCategoria.id} productos={filtroCategoria} /> :
                     <ProductCard key={productos.id} productos={productos} />
             }
         </div>
