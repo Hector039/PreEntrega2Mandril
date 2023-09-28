@@ -1,57 +1,58 @@
 
 import { useEffect, useState } from "react";
-import datos from "../Data/productos.json";
 import ProductCard from "../ProductCard/ProductCard";
-import SeccionVerMas from "../SeccionVerMas/SeccionVerMas";
 
-export default function ItemListContainer({ greeting }) {
-    const [productos, setProductos] = useState([]);
+export default function ItemListContainer({ productos }) {
 
-    const tomarProductos = () => {
-        return new Promise((resolve, reject) => {
-            resolve(datos)
-        })
+    const [filtroCategoria, setFiltroCategoria] = useState([]);
+    const [targetIn, setTargetIn] = useState("todos");
+
+    const [ordenar, setOrdenar] = useState([]);
+    const [eventIn, setEventIn] = useState("todos");
+
+    function filtrarPorCategoria(e) {
+        setTargetIn(e.target.value);
+    }
+
+    function filtrarPrecio(e) {
+        setEventIn(e.target.value);
     }
 
     useEffect(() => {
-        tomarProductos()
-            .then((res) => {
-                setProductos(res);
-            })
-    }, [])
-    
-    console.log(productos);
-
-
-
-    const [filtroCategoria, setFiltroCategoria] = useState([...productos]);
-
-    console.log(filtroCategoria);
-
-
-    function filtrarPorCategoria(e) {
-        let categoria = e.target.value;
-        const productosFiltrados = productos.filter((obj) => {
-            if (obj.categoria === categoria) {
-                return (obj)
-            }else if(categoria === "todos"){
-                return (obj)
+        const productosFiltrados = productos.filter((elemento) => {
+            if (elemento.categoria === targetIn) {
+                return (elemento);
+            }else{
+                return (elemento);
             }
-        })
+        });
+        console.log(targetIn);
+        console.log(productosFiltrados);
         setFiltroCategoria(productosFiltrados);
-    }
+    }, [targetIn])
 
-    function filtrarPorPrecio (e){
-        let ordenPrecio = e.target.value;
-        if (productosFiltrados.lenght === 0 && ordenPrecio === "menor"){
-            const productosFiltradosPrecio = productos.sort(function(a, b){
-                return a - b;
-            } )
-        }
-    }
+   
+
+    useEffect(() => {
+        const productosOrdenados = filtroCategoria.sort(function (a, b) {
+            if (eventIn === "menor") {
+                return (a.precio - b.precio);
+            } else if (eventIn === "mayor") {
+                return (b.precio - a.precio);
+            } else if (eventIn === "todos") {
+                return filtroCategoria;
+            }
+        });
+        console.log(eventIn);
+        console.log(productosOrdenados);
+        setOrdenar(productosOrdenados);
+        }, [eventIn, filtroCategoria])
+
+        console.log(productos);
+        console.log(ordenar);
     return (
         <div className="item-list-container">
-            <h1>{greeting}</h1>
+            <h1>Bienvenidos a nuestro Mercadito Verde</h1>
 
             <div className="filter-container">
                 <div className="category-filter">
@@ -66,26 +67,22 @@ export default function ItemListContainer({ greeting }) {
                     </select>
                 </div>
 
-                <div className="filter-filter">
+                
+            <div className="filter-filter">
                     <label htmlFor="filter-select">Filtrar:</label>
-                    <select name="filter" id="filter-select">
+                    <select name="filter" id="filter-select" onChange={filtrarPrecio}>
                         <option value="todos">--Elige el Filtro/Ninguno--</option>
                         <option value="menor">Menor Precio</option>
                         <option value="mayor">Mayor precio</option>
                     </select>
                 </div>
+
             </div>
             {
-                filtroCategoria.length > 0 ? 
-                <><ProductCard key={filtroCategoria.id} productos={filtroCategoria} />
-                <SeccionVerMas key={filtroCategoria.id} productos={filtroCategoria} /></> : 
-                <><ProductCard key={productos.id} productos={productos} />
-                <SeccionVerMas key={productos.id} productos={productos} /></>
-                
+                ordenar.length > 0 ?
+                    <ProductCard key={ordenar.id} productos={ordenar} /> :
+                    <ProductCard key={productos.id} productos={productos} />
             }
-            
         </div>
-
     )
-
 }
