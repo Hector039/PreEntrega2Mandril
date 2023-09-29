@@ -25,10 +25,11 @@ export default function ProductCard({ productos }) {
                     })
                 }
 
-                <div className="ver-mas-seccion">
+                
+            </div>
+            <div className="ver-mas-seccion">
                     <button className="boton-ver-mas" onClick={handleMostrarMas}>Ver Más</button>
                 </div>
-            </div>
         </div>
 
     )

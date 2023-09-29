@@ -1,3 +1,4 @@
+import { Link, NavLink } from "react-router-dom";
 import PhoneIcon from "./Assets/icon-phone.svg";
 import EmailIcon from "./Assets/icon-email.svg";
 import LocationIcon from "./Assets/icon-location.svg";
@@ -14,16 +15,27 @@ export default function Footer() {
                 <div className="navbar-menu-footer">
                     <p>Mapa del Sitio:</p>
                     <div className="footer-buttons">
-                    <button className="navbar-item-footer">Inicio</button>
-                    <button className="navbar-item-footer">Mercadito</button>
-                    <button className="navbar-item-footer">Mi Cuenta</button>
-                    <button className="navbar-item-footer">Carrito</button>
+                        <NavLink to={"/"} className="navbar-item-footer" style={({ isActive }) => {
+                            return { fontWeight: isActive ? "bold" : "" }
+                        }}>Inicio</NavLink>
+                        <NavLink to={"/cuenta"} className="navbar-item-footer" style={({ isActive }) => {
+                            return { fontWeight: isActive ? "bold" : "" }
+                        }}>Mi Cuenta</NavLink>
+                        <NavLink to={"/carrito"} className="navbar-item-footer" style={({ isActive }) => {
+                            return { fontWeight: isActive ? "bold" : "" }
+                        }}>Carrito</NavLink>
+                        <NavLink to={"/contacto"} className="navbar-item-footer" style={({ isActive }) => {
+                            return { fontWeight: isActive ? "bold" : "" }
+                        }}>Contacto</NavLink>
                     </div>
                 </div>
 
                 <div className="footer-brand">
+                    <Link to={"/"}>
                         <img src={LogoFooter} alt="Tienda Logo" />
-                    </div>
+                    </Link>
+
+                </div>
 
                 <div className="contacto-footer">
                     <div className="contacto-uno-footer">
@@ -54,12 +66,20 @@ export default function Footer() {
                         </div>
                     </div>
                     <div className="footer-networks">
-                    <a href="https://www.facebook.com/" target="_blank" rel="noreferrer" className="network-icon"><img src={FacebookIcon} alt="Facebook Icono" /></a>
-                    <a href="https://www.instagram.com/" target="_blank" rel="noreferrer" className="network-icon"><img src={InstagramIcon} alt="Instagram Icono" /></a>
-                    <a href="https://web.whatsapp.com/" target="_blank" rel="noreferrer" className="network-icon"><img src={WhatsappIcon} alt="Whatsapp Icono" /></a>
+
+                        <Link to={"https://www.facebook.com/"} target="_blank" rel="noreferrer" className="network-icon">
+                            <img src={FacebookIcon} alt="Facebook Icono" />
+                        </Link>
+                        <Link to={"https://www.instagram.com/"} target="_blank" rel="noreferrer" className="network-icon">
+                            <img src={InstagramIcon} alt="Instagram Icono" />
+                        </Link>
+                        <Link to={"https://web.whatsapp.com/"} target="_blank" rel="noreferrer" className="network-icon">
+                            <img src={WhatsappIcon} alt="Whatsapp Icono" />
+                        </Link>
+
+                    </div>
                 </div>
-                </div>
-                
+
                 <div className="footer-pagos">
                     <p>Medios de Pago:</p>
                     <div>
