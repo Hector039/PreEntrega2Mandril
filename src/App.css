@@ -113,6 +113,27 @@ h1 {
     width: 200px;
     height: 100px;
 }
+.precio-cantidad{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.seleccion-cantidad{
+    display: flex;
+    align-items: center;
+    background-color: #418241;
+}
+.info-cantidad{
+    width: 45px;
+    color: white;
+    text-align: center;
+}
+.botton-cantidad{
+    background-color: #4b9d40;
+    color: white;
+    padding: 10px;
+    border-style: none;
+}
 
 .buttons-card {
     display: flex;
@@ -140,6 +161,7 @@ h1 {
     align-items: center;
     gap: 15px;
 }
+
 
 .filter-container {
     display: flex;
